@@ -16,7 +16,7 @@ export default function Register() {
 
    const submit = (e: React.FormEvent) => {
       e.preventDefault();
-      console.log("Register attempt", data);
+      post('/register');
    };
 
    return (
@@ -111,24 +111,10 @@ export default function Register() {
                   </Button>
                </form>
 
-               <div className="relative">
-                  <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-zinc-100" /></div>
-                  <div className="relative flex justify-center text-[10px] font-black uppercase tracking-[0.3em] bg-white px-6 text-zinc-300">Or continue with</div>
-               </div>
 
-               <div className="flex gap-4">
-                  <Button variant="outline" className="flex-1 h-16 rounded-2xl border-zinc-100 font-black text-xs uppercase tracking-widest hover:bg-zinc-50 transition-all">
-                     <Chrome size={18} className="mr-3" />
-                     Google
-                  </Button>
-                  <Button variant="outline" className="flex-1 h-16 rounded-2xl border-zinc-100 font-black text-xs uppercase tracking-widest hover:bg-zinc-50 transition-all">
-                     <Github size={18} className="mr-3" />
-                     Github
-                  </Button>
-               </div>
 
                <p className="text-center text-sm font-bold text-zinc-400">
-                  Already have an account? <Link href="/login" className="text-primary hover:underline underline-offset-4">Sign in</Link>
+                  Already have an account? <Link href="/login" className="text-primary hover:underline underline-offset-4">Log In</Link>
                </p>
             </div>
          </div>

@@ -1,9 +1,9 @@
 import { Head, Link } from "@inertiajs/react";
-import MainLayout from "@/layouts/main-layout";
+import { Sparkles, ArrowRight, Star } from "lucide-react";
 import BookCard from "@/components/book-card";
-import { BOOKS } from "@/constants/dummy";
 import { Button } from "@/components/ui/button";
-import { Sparkles, BookCheck, Zap, ArrowRight, Star } from "lucide-react";
+import { BOOKS } from "@/constants/dummy";
+import MainLayout from "@/layouts/main-layout";
 
 export default function Home() {
     const featuredBooks = BOOKS.slice(0, 5);

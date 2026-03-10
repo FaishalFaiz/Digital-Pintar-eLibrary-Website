@@ -2,28 +2,37 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AuthController;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
 
-Route::get('/login', function () {
-    return Inertia::render('auth/login');
-})->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'create'])->name('login');
+    Route::post('/login', [AuthController::class, 'store']);
+    Route::get('/register', function () {
+        return Inertia::render('auth/register');
+    })->name('register');
+    Route::post('/register', [AuthController::class, 'registerStore']);
+});
 
-Route::get('/register', function () {
-    return Inertia::render('auth/register');
-})->name('register');
+// Khusus yang UDAH LOGIN (Protected Routes) 🔒
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('dashboard');
-})->name('dashboard');
+    Route::get('/bookmarks', function () {
+        return Inertia::render('bookmarks');
+    })->name('bookmarks');
 
-Route::get('/bookmarks', function () {
-    return Inertia::render('bookmarks');
-})->name('bookmarks');
+    Route::get('/detail/{id}', function ($id) {
+        return Inertia::render('detail', ['id' => $id]);
+    })->name('detail');
 
-Route::get('/detail/{id}', function ($id) {
-    return Inertia::render('detail', ['id' => $id]);
-})->name('detail');
+    // Route untuk nembak fungsi logout
+    Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+});
+

@@ -1,7 +1,4 @@
 import { Head, Link } from "@inertiajs/react";
-import DashboardLayout from "@/layouts/dashboard-layout";
-import { BOOKS } from "@/constants/dummy";
-import { Button } from "@/components/ui/button";
 import {
    Bookmark,
    ArrowLeft,
@@ -11,8 +8,10 @@ import {
    Globe,
    ShieldCheck,
    ChevronRight,
-   Share2
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BOOKS } from "@/constants/dummy";
+import DashboardLayout from "@/layouts/dashboard-layout";
 
 export default function Detail({ id }: { id: string }) {
    const book = BOOKS.find(b => b.id === Number(id)) || BOOKS[0];
@@ -24,20 +23,20 @@ export default function Detail({ id }: { id: string }) {
          <div className="max-w-6xl mx-auto flex flex-col gap-10">
             {/* Navigation Header */}
             <div className="flex items-center justify-between">
-                <Link href="/dashboard">
-                    <div className="group flex items-center gap-3 text-zinc-400 hover:text-zinc-900 transition-colors">
-                        <div className="w-10 h-10 rounded-xl bg-white border border-zinc-100 flex items-center justify-center shadow-sm group-hover:bg-zinc-50">
-                            <ArrowLeft size={18} />
-                        </div>
-                        <span className="text-xs font-black uppercase tracking-widest">Kembali ke Koleksi</span>
-                    </div>
-                </Link>
-                <div className="flex items-center gap-2">
-                    <Button className="h-10 px-4 rounded-xl hover:text-white/70 gap-2 transition-all">
-                        <Bookmark size={16} />
-                        <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Simpan</span>
-                    </Button>
-                </div>
+               <Link href="/dashboard">
+                  <div className="group flex items-center gap-3 text-zinc-400 hover:text-zinc-900 transition-colors">
+                     <div className="w-10 h-10 rounded-xl bg-white border border-zinc-100 flex items-center justify-center shadow-sm group-hover:bg-zinc-50">
+                        <ArrowLeft size={18} />
+                     </div>
+                     <span className="text-xs font-black uppercase tracking-widest">Kembali ke Koleksi</span>
+                  </div>
+               </Link>
+               <div className="flex items-center gap-2">
+                  <Button className="h-10 px-4 rounded-xl hover:text-white/70 gap-2 transition-all">
+                     <Bookmark size={16} />
+                     <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Simpan</span>
+                  </Button>
+               </div>
             </div>
 
             {/* Main Content Section */}

@@ -4,7 +4,7 @@ export const BOOKS = [
     title: "The Silent Patient",
     author: "Alex Michaelides",
     category: "Mystery",
-    cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800",
+    cover: "https://cdn.gramedia.com/uploads/items/9781250301703.jpg",
     rating: 4.8,
     pages: 336,
     isbn: "9781250301697", // ISBN The Silent Patient
@@ -15,7 +15,7 @@ export const BOOKS = [
     title: "Atomic Habits",
     author: "James Clear",
     category: "Productivity",
-    cover: "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80&w=800",
+    cover: "https://cdn.gramedia.com/uploads/items/9786020633176_.Atomic_Habit.jpg",
     rating: 4.9,
     pages: 320,
     isbn: "9781847941831", // ISBN Atomic Habits
@@ -26,7 +26,7 @@ export const BOOKS = [
     title: "The Psychology of Money",
     author: "Morgan Housel",
     category: "Finance",
-    cover: "https://images.unsplash.com/photo-1550565118-3a14e8d0386f?auto=format&fit=crop&q=80&w=800",
+    cover: "https://cdn.gramedia.com/uploads/picture_meta/2024/1/20/qvjtc65vbzmexfegzrgs7u.jpg",
     rating: 4.7,
     pages: 252,
     isbn: "9780857197689", // ISBN The Psychology of Money
@@ -37,7 +37,7 @@ export const BOOKS = [
     title: "Sapiens",
     author: "Yuval Noah Harari",
     category: "History",
-    cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
+    cover: "https://cdn.gramedia.com/uploads/items/591701404_sapiens.jpg",
     rating: 4.9,
     pages: 443,
     isbn: "9780062316097", // ISBN Sapiens
@@ -48,7 +48,7 @@ export const BOOKS = [
     title: "Design for Better Future",
     author: "Don Norman",
     category: "Design",
-    cover: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=800",
+    cover: "https://openlibrary.telkomuniversity.ac.id/uploads/book/cover/21.21.3277.png",
     rating: 4.6,
     pages: 312,
     isbn: "9780262047951", // ISBN Design for a Better World (Don Norman)

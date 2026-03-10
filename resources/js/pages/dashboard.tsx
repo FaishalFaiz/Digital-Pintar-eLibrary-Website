@@ -1,8 +1,8 @@
 import { Head } from "@inertiajs/react";
-import DashboardLayout from "@/layouts/dashboard-layout";
 import BookCard from "@/components/book-card";
-import { BOOKS } from "@/constants/dummy";
 import { Button } from "@/components/ui/button";
+import { BOOKS } from "@/constants/dummy";
+import DashboardLayout from "@/layouts/dashboard-layout";
 
 export default function Dashboard() {
     return (

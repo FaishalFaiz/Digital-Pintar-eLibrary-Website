@@ -1,9 +1,9 @@
 import { Head } from "@inertiajs/react";
-import DashboardLayout from "@/layouts/dashboard-layout";
+import { Heart, ArrowRight } from "lucide-react";
 import BookCard from "@/components/book-card";
-import { BOOKS } from "@/constants/dummy";
-import { BookMarked, Search, Heart, Sparkles, Filter, Trash2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BOOKS } from "@/constants/dummy";
+import DashboardLayout from "@/layouts/dashboard-layout";
 
 export default function Bookmarks() {
     const bookmarkedBooks = BOOKS.slice(0, 2);
@@ -32,7 +32,7 @@ export default function Bookmarks() {
                     <div className="bg-primary rounded-[50px] p-12 flex flex-col lg:flex-row items-center gap-16 text-white relative group overflow-hidden shadow-2xl shadow-primary/20">
                         {/* Decorative background */}
                         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                        
+
                         {/* Book image display */}
                         <div className="relative shrink-0 perspective-1000">
                              <img

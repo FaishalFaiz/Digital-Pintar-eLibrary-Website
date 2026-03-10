@@ -1,5 +1,5 @@
 import { usePage, Link } from "@inertiajs/react";
-import { LayoutDashboard, BookMarked, UserCircle, Menu, X, Search, Bell, Moon } from "lucide-react";
+import { LayoutDashboard, BookMarked, UserCircle, Menu, X, Search, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import Logo from "@/components/logo";
 
@@ -63,17 +63,15 @@ export default function DashboardLayout({ children, title = "" }: { children: Re
         </div>
 
         {/* User Card at Bottom */}
-        <div className="p-6">
-          <div className="bg-zinc-50 rounded-[25px] p-2 pr-4 flex items-center gap-3">
-            <div className="size-10 rounded-2xl bg-white shadow-sm flex items-center justify-center font-black text-primary border border-zinc-100">
-              {user.name.charAt(0)}
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs font-black truncate text-zinc-900 leading-none mb-1">{user.name}</span>
-              <span className="text-[10px] text-zinc-400 truncate leading-none uppercase tracking-widest font-bold">Premium User</span>
-            </div>
-          </div>
-        </div>
+        <Link
+          href="/logout"
+          method="post"
+          as="button"
+          className="flex items-center gap-2 px-6 py-3 bg-red-500 text-white font-bold rounded-2xl hover:bg-red-600 transition-colors shadow-lg shadow-red-500/30"
+        >
+          <LogOut size={20} />
+          Logout Sekarang
+        </Link>
       </aside>
 
       {/* Main Content */}

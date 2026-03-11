@@ -1,5 +1,5 @@
 import { Head, Link } from "@inertiajs/react";
-import { Sparkles, ArrowRight, Star } from "lucide-react";
+import { Sparkles, Star } from "lucide-react";
 import BookCard from "@/components/book-card";
 import { Button } from "@/components/ui/button";
 import { BOOKS } from "@/constants/dummy";

@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { Head } from "@inertiajs/react";
-import BookCard, { BookProps } from "@/components/book-card";
+import { useState } from "react";
+import type { BookProps } from "@/components/book-card";
+import BookCard from "@/components/book-card";
 import { Button } from "@/components/ui/button";
 import { BOOKS } from "@/constants/dummy";
 import DashboardLayout from "@/layouts/dashboard-layout";
@@ -28,7 +29,7 @@ export default function Dashboard() {
             const data = await res.json();
 
             if (data.items && data.items.length > 0) {
-                const mappedBooks = data.items.map((item: any) => ({
+                const mappedBooks = data.items.map((item: { id: string; volumeInfo: { title: string; authors: string[]; categories: string[]; imageLinks: { thumbnail?: string }; averageRating: number } }) => ({
                     id: item.id,
                     title: item.volumeInfo.title || 'Untitled',
                     author: item.volumeInfo.authors ? item.volumeInfo.authors.join(", ") : 'Unknown Author',

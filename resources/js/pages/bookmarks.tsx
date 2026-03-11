@@ -1,9 +1,10 @@
 import { Head } from "@inertiajs/react";
 import { Heart, ArrowRight } from "lucide-react";
-import BookCard, { BookProps } from "@/components/book-card";
+import { useState, useEffect } from "react";
+import type { BookProps } from "@/components/book-card";
+import BookCard from "@/components/book-card";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/layouts/dashboard-layout";
-import { useState, useEffect } from "react";
 
 export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
     const [bookmarkedBooks, setBookmarkedBooks] = useState<BookProps[]>([]);

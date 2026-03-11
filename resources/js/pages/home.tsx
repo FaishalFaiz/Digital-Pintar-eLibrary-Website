@@ -16,8 +16,8 @@ export default function Home() {
             {/* Hero Section - Inspired by Image 2 */}
             <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden px-6">
                 {/* Decorative Blobs */}
-                <div className="blob-shape top-0 left-0 w-[500px] h-[500px] bg-blue-400/10 -translate-x-1/4 -translate-y-1/4" />
-                <div className="blob-shape bottom-0 right-0 w-[600px] h-[600px] bg-indigo-500/10 translate-x-1/4 translate-y-1/4" />
+                <div className="blob-shape top-0 left-0 w-125 h-125 bg-blue-400/10 -translate-x-1/4 -translate-y-1/4" />
+                <div className="blob-shape bottom-0 right-0 w-150 h-150 bg-indigo-500/10 translate-x-1/4 translate-y-1/4" />
                 <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-yellow-400/20 rounded-full blur-[60px]" />
 
                 <div className="container mx-auto">
@@ -57,7 +57,7 @@ export default function Home() {
                                 <div className="absolute inset-0 bg-blue-600/5 rounded-[60px] rotate-3" />
                                 <img
                                     src="/images/master-image.webp"
-                                    className="relative z-20 w-full h-[300px] md:h-[500px] object-cover rounded-[40px] md:rounded-[50px] shadow-2xl"
+                                    className="relative z-20 w-full h-75 md:h-125 object-cover rounded-[40px] md:rounded-[50px] shadow-2xl"
                                     alt="Learning is fun"
                                 />
                             </div>
@@ -79,7 +79,7 @@ export default function Home() {
                             {featuredBooks.map((book, i) => (
                                 <div
                                     key={i}
-                                    className={`relative aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden shadow-lg transition-all duration-500 cursor-pointer ${i === 2 ? 'scale-110 ring-4 ring-primary ring-offset-4 md:ring-offset-8 z-20' : i > 2 ? 'hidden md:block opacity-40 grayscale hover:opacity-100 hover:grayscale-0' : 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0'}`}
+                                    className={`relative aspect-3/4 rounded-xl md:rounded-2xl overflow-hidden shadow-lg transition-all duration-500 cursor-pointer ${i === 2 ? 'scale-110 ring-4 ring-primary ring-offset-4 md:ring-offset-8 z-20' : i > 2 ? 'hidden md:block opacity-40 grayscale hover:opacity-100 hover:grayscale-0' : 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0'}`}
                                 >
                                     <img src={book.cover} className="w-full h-full object-cover" alt={book.title} />
                                 </div>
@@ -141,7 +141,7 @@ export default function Home() {
             <section className="py-20 md:py-32 sm:px-6">
                 <div className="container mx-auto px-6">
                     <div className="bg-zinc-900 rounded-[40px] md:rounded-[60px] p-8 sm:p-20 text-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+                        <div className="absolute top-0 right-0 w-100 h-100 bg-primary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
 
                         <h2 className="text-4xl md:text-7xl font-black text-white mb-6 md:mb-8 tracking-tight">Stay ahead with <br /><span className="text-primary italic font-serif lowercase">digital</span> intelligence</h2>
                         <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 md:mb-12">

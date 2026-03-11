@@ -1,5 +1,3 @@
-import { Link } from "@inertiajs/react";
-
 // Tambahkan isScrolled di props
 export default function Logo({ className = "", isScrolled = false }: { className?: string, isScrolled?: boolean }) {
   return (
@@ -13,7 +11,7 @@ export default function Logo({ className = "", isScrolled = false }: { className
         }`}>
           Pintar
         </span>
-        <span className="text-primary text-5xl leading-[0]">.</span>
+        <span className="text-primary text-5xl leading-0">.</span>
       </span>
     </div>
   );

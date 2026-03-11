@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { Menu, X, } from "lucide-react";
 import { useState, useEffect } from "react";
-import { User } from "@/types";
+import type { User } from "@/types";
 import Logo from "./logo";
 import { Button } from "./ui/button";
 import ProfileCard from "./ui/profile-card";

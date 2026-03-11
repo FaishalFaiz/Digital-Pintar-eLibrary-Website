@@ -1,13 +1,13 @@
 import { Link } from "@inertiajs/react";
 
 // Jangan lupa kasih tipe data kalau pakai TypeScript biar gak merah!
-export default function ProfileCard({ user }: { user: any }) {
+export default function ProfileCard({ user }: { user: { name: string, email: string, avatar?: string } | null }) {
     if (!user) return null;
 
     return (
         <Link
             href="/dashboard"
-            className="flex items-center gap-3 bg-zinc-100 p-1 rounded-full pr-4 hover:bg-zinc-200 transition-all hidden lg:flex border border-zinc-200"
+            className="items-center gap-3 bg-zinc-100 p-1 rounded-full pr-4 hover:bg-zinc-200 transition-all hidden lg:flex border border-zinc-200"
         >
             <div className="size-9 rounded-full overflow-hidden border-2 border-white shadow-sm">
                 <img

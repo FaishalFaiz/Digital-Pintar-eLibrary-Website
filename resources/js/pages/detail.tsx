@@ -27,15 +27,15 @@ interface BookDetailData {
 }
 
 export default function Detail({ id, isBookmarked }: { id: string, isBookmarked: boolean }) {
-    const { data, setData, post, processing } = useForm({
-        book_id: id,
-    });
+   const { post, processing } = useForm({
+      book_id: id,
+   });
 
-    const handleBookmark = () => {
-        post("/bookmarks/toggle", {
-            preserveScroll: true,
-        });
-    };
+   const handleBookmark = () => {
+      post("/bookmarks/toggle", {
+         preserveScroll: true,
+      });
+   };
    const [book, setBook] = useState<BookDetailData | null>(null);
    const [isLoading, setIsLoading] = useState(true);
    const [error, setError] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
             const res = await fetch(`/api/books/${id}`);
             if (!res.ok) throw new Error("Gagal mengambil data buku");
             const data = await res.json();
-            
+
             const volumeInfo = data.volumeInfo;
             setBook({
                id: data.id,
@@ -61,9 +61,10 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
                isbn: volumeInfo.industryIdentifiers ? volumeInfo.industryIdentifiers[0].identifier : 'N/A',
                description: volumeInfo.description ? volumeInfo.description.replace(/<[^>]*>?/gm, '') : 'Tidak ada deskripsi tersedia untuk buku ini.',
             });
-         } catch (err: any) {
+         } catch (err: Error | unknown) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
             console.error("Error fetching book:", err);
-            setError(err.message);
+            setError(errorMessage);
          } finally {
             setIsLoading(false);
          }
@@ -119,12 +120,12 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
                   </div>
                </Link>
                <div className="flex items-center gap-2">
-                  <Button 
+                  <Button
                      onClick={handleBookmark}
                      disabled={processing || isLoading}
                      className={`h-11 px-6 rounded-2xl gap-3 transition-all duration-300 font-bold uppercase tracking-widest text-[11px] shadow-sm
-                        ${isBookmarked 
-                           ? "bg-zinc-100 text-zinc-900 border border-zinc-200 hover:bg-zinc-200" 
+                        ${isBookmarked
+                           ? "bg-zinc-100 text-zinc-900 border border-zinc-200 hover:bg-zinc-200"
                            : "bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
                         }`}
                   >
@@ -142,12 +143,12 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
             <div className="flex flex-col lg:flex-row gap-12 items-start">
                {/* Product Image Section */}
                <div className="w-full lg:w-1/3 lg:sticky lg:top-32">
-                  <div className="relative group max-w-[280px] sm:max-w-[320px] lg:max-w-none mx-auto lg:mx-0">
+                  <div className="relative group max-w-70 sm:max-w-[320px] lg:max-w-none mx-auto lg:mx-0">
                      <div className="absolute -inset-4 bg-primary/5 rounded-[50px] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                      <img
                         src={book.cover}
                         alt={book.title}
-                        className="relative z-10 w-full aspect-[3/4] object-cover rounded-[30px] md:rounded-[40px] shadow-2xl shadow-zinc-200 group-hover:scale-[1.02] transition-transform duration-500"
+                        className="relative z-10 w-full aspect-3/4 object-cover rounded-[30px] md:rounded-[40px] shadow-2xl shadow-zinc-200 group-hover:scale-[1.02] transition-transform duration-500"
                      />
                      <div className="absolute top-4 left-4 z-20">
                         <div className="glass-effect px-3 py-1.5 rounded-xl text-[9px] font-black text-primary uppercase tracking-widest flex items-center gap-2">

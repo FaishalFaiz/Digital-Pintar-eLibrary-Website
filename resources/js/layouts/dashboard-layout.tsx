@@ -4,10 +4,34 @@ import { useState } from "react";
 import Logo from "@/components/logo";
 import ProfileCard from "@/components/ui/profile-card";
 
-export default function DashboardLayout({ children, title = "", onSearch }: { children: React.ReactNode, title?: string, onSearch?: (query: string) => void }) {
-  const { auth } = usePage().props as any;
+// 1. Definisikan Interface biar gak pakai 'any' lagi
+interface User {
+  name: string;
+  email: string;
+  // tambahkan field lain jika ada
+}
+
+interface PageProps {
+  auth: {
+    user: User;
+  };
+  [key: string]: unknown;
+}
+
+export default function DashboardLayout({
+  children, // Kita bakal pakai ini di judul halaman!
+  onSearch
+}: {
+  children: React.ReactNode,
+  title?: string,
+  onSearch?: (query: string) => void
+}) {
+  // 2. Gunakan interface yang sudah dibuat
+  const { auth } = usePage().props as unknown as PageProps;
   const { url } = usePage();
-  const [collapsed, setCollapsed] = useState(false);
+
+  // 3. Tambahkan underscore (_) jika variabel memang tidak dipakai agar linter cuek
+  const [collapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const sidebarLinks = [
@@ -23,17 +47,16 @@ export default function DashboardLayout({ children, title = "", onSearch }: { ch
       {/* Mobile Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[60] lg:hidden animate-in fade-in duration-300"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-60 lg:hidden animate-in fade-in duration-300"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
-      {/* Sidebar - Inspired by Image 3 */}
+      {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-[70] bg-white border-r border-zinc-100 transition-all duration-500 flex flex-col pointer-events-auto ${collapsed ? "w-24" : "w-72"
+        className={`fixed top-0 left-0 bottom-0 z-70 bg-white border-r border-zinc-100 transition-all duration-500 flex flex-col pointer-events-auto ${collapsed ? "w-24" : "w-72"
           } ${mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"}`}
       >
-        {/* Header */}
         <div className="h-24 flex items-center justify-between px-8">
           <Link href="/" className="overflow-hidden">
             <Logo isScrolled={true} />
@@ -43,7 +66,6 @@ export default function DashboardLayout({ children, title = "", onSearch }: { ch
           </button>
         </div>
 
-        {/* Links */}
         <div className="flex-1 py-4 px-6 flex flex-col gap-1 overflow-y-auto mt-4">
           {sidebarLinks.map((link) => {
             const active = url === link.href;
@@ -63,7 +85,6 @@ export default function DashboardLayout({ children, title = "", onSearch }: { ch
           })}
         </div>
 
-        {/* User Card at Bottom */}
         <Link
           href="/logout"
           method="post"
@@ -77,9 +98,7 @@ export default function DashboardLayout({ children, title = "", onSearch }: { ch
 
       {/* Main Content */}
       <div className={`flex-1 transition-all duration-500 flex flex-col min-w-0 pointer-events-auto h-svh ${collapsed ? "lg:ml-24" : "lg:ml-72"}`}>
-        {/* Top Header */}
         <header className="sticky top-0 z-50 flex h-20 items-center justify-between gap-8 bg-white/80 px-6 backdrop-blur-md lg:h-24 lg:px-12">
-          {/* Left Side: Burger Menu (Mobile) & Search */}
           <div className="flex w-full items-center gap-4 lg:max-w-md">
             <button
               className="p-2 -ml-2 text-zinc-500 transition-colors hover:bg-zinc-100 rounded-lg lg:hidden"
@@ -103,11 +122,9 @@ export default function DashboardLayout({ children, title = "", onSearch }: { ch
             </div>
           </div>
 
-          {/* Right Side: User Profile / Actions (Desktop) */}
           <ProfileCard user={user} />
         </header>
 
-        {/* Content Area */}
         <main className="flex-1 px-6 md:px-12 pb-12 overflow-y-auto overflow-x-hidden relative">
           {children}
         </main>

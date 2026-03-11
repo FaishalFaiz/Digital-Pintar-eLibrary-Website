@@ -9,12 +9,85 @@ import {
    ShieldCheck,
    ChevronRight,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { BOOKS } from "@/constants/dummy";
 import DashboardLayout from "@/layouts/dashboard-layout";
 
+interface BookDetailData {
+   id: string;
+   title: string;
+   author: string;
+   category: string;
+   cover: string;
+   rating: number;
+   pages: number;
+   year: string;
+   isbn: string;
+   description: string;
+}
+
 export default function Detail({ id }: { id: string }) {
-   const book = BOOKS.find(b => b.id === Number(id)) || BOOKS[0];
+   const [book, setBook] = useState<BookDetailData | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+
+   useEffect(() => {
+      const fetchBookDetail = async () => {
+         setIsLoading(true);
+         try {
+            const res = await fetch(`/api/books/${id}`);
+            if (!res.ok) throw new Error("Gagal mengambil data buku");
+            const data = await res.json();
+            
+            const volumeInfo = data.volumeInfo;
+            setBook({
+               id: data.id,
+               title: volumeInfo.title || 'Untitled',
+               author: volumeInfo.authors ? volumeInfo.authors.join(", ") : 'Unknown Author',
+               category: volumeInfo.categories ? volumeInfo.categories[0] : 'General',
+               cover: volumeInfo.imageLinks?.extraLarge || volumeInfo.imageLinks?.large || volumeInfo.imageLinks?.medium || volumeInfo.imageLinks?.thumbnail?.replace('http:', 'https:') || 'https://placehold.co/300x400/png?text=No+Cover',
+               rating: volumeInfo.averageRating || 0,
+               pages: volumeInfo.pageCount || 0,
+               year: volumeInfo.publishedDate ? volumeInfo.publishedDate.split('-')[0] : 'N/A',
+               isbn: volumeInfo.industryIdentifiers ? volumeInfo.industryIdentifiers[0].identifier : 'N/A',
+               description: volumeInfo.description ? volumeInfo.description.replace(/<[^>]*>?/gm, '') : 'Tidak ada deskripsi tersedia untuk buku ini.',
+            });
+         } catch (err: any) {
+            console.error("Error fetching book:", err);
+            setError(err.message);
+         } finally {
+            setIsLoading(false);
+         }
+      };
+
+      fetchBookDetail();
+   }, [id]);
+
+   if (isLoading) {
+      return (
+         <DashboardLayout title="Memuat Buku...">
+            <div className="flex justify-center items-center h-screen -mt-24">
+               <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
+            </div>
+         </DashboardLayout>
+      );
+   }
+
+   if (error || !book) {
+      return (
+         <DashboardLayout title="Error">
+            <div className="max-w-6xl mx-auto flex flex-col items-center justify-center h-96 gap-6">
+               <h2 className="text-3xl font-black text-zinc-900">Oops! Buku tidak ditemukan.</h2>
+               <p className="text-zinc-500 font-medium">{error || "Data buku yang Anda cari mungkin telah dihapus."}</p>
+               <Link href="/dashboard">
+                  <Button variant="outline" className="h-12 px-8 rounded-full font-black uppercase tracking-widest">
+                     Kembali ke Dashboard
+                  </Button>
+               </Link>
+            </div>
+         </DashboardLayout>
+      );
+   }
 
    return (
       <DashboardLayout title={`Detail: ${book.title}`}>
@@ -89,20 +162,20 @@ export default function Detail({ id }: { id: string }) {
                         <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Waktu Baca</span>
                         <div className="flex items-center gap-2 text-zinc-900 font-black">
                            <Clock size={16} className="text-yellow-500" />
-                           ~{Math.round(book.pages / 2)} mnt
+                           ~{Math.round(book.pages / 2) || 0} mnt
                         </div>
                      </div>
                      <div className="flex flex-col gap-1">
                         <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Tahun Terbit</span>
                         <div className="flex items-center gap-2 text-zinc-900 font-black">
                            <ShieldCheck size={16} className="text-green-500" />
-                           2023
+                           {book.year}
                         </div>
                      </div>
                      <div className="flex flex-col gap-1">
                         <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">ISBN</span>
                         <div className="flex items-center gap-2 text-zinc-900 font-black truncate">
-                           {book.isbn || "N/A"}
+                           {book.isbn}
                         </div>
                      </div>
                   </div>
@@ -112,11 +185,8 @@ export default function Detail({ id }: { id: string }) {
                      <h3 className="text-xl font-black text-zinc-900 tracking-tight uppercase">Sinopsis Buku</h3>
                      <div className="relative">
                         <p className="text-lg text-zinc-500 leading-relaxed font-medium">
-                           {book.description || "Tidak ada deskripsi tersedia untuk buku ini."}
+                           {book.description}
                         </p>
-                        <div className="mt-4 text-primary font-black text-xs uppercase cursor-pointer hover:underline underline-offset-4">
-                           Baca Selengkapnya...
-                        </div>
                      </div>
                   </div>
 

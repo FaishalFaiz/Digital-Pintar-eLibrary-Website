@@ -4,7 +4,7 @@ import { useState } from "react";
 import Logo from "@/components/logo";
 import ProfileCard from "@/components/ui/profile-card";
 
-export default function DashboardLayout({ children, title = "" }: { children: React.ReactNode, title?: string }) {
+export default function DashboardLayout({ children, title = "", onSearch }: { children: React.ReactNode, title?: string, onSearch?: (query: string) => void }) {
   const { auth } = usePage().props as any;
   const { url } = usePage();
   const [collapsed, setCollapsed] = useState(false);
@@ -92,8 +92,13 @@ export default function DashboardLayout({ children, title = "" }: { children: Re
               <Search className="absolute top-1/2 left-4 size-4 -translate-y-1/2 text-zinc-400 transition-colors group-focus-within:text-blue-600" />
               <input
                 type="text"
-                placeholder="Search books..."
+                placeholder="Search books... (Press Enter)"
                 className="w-full rounded-2xl border-none bg-zinc-100 py-3 pl-12 pr-6 text-sm text-black outline-none transition-all focus:ring-4 focus:ring-blue-600/10 placeholder:text-zinc-500"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    onSearch?.(e.currentTarget.value);
+                  }
+                }}
               />
             </div>
           </div>

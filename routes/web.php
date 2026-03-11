@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
@@ -34,5 +35,8 @@ Route::middleware('auth')->group(function () {
 
     // Route untuk nembak fungsi logout
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+
+    Route::get('/api/books/search', [BookController::class, 'search'])->name('books.search');
+    Route::get('/api/books/{id}', [BookController::class, 'show'])->name('books.show');
 });
 

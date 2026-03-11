@@ -21,7 +21,7 @@ export default function Login() {
 
    return (
       <div className="min-h-svh flex flex-col lg:flex-row bg-white selection:bg-primary/20 overflow-hidden relative">
-         <Head title="Sign In - Digital Pintar" />
+         <Head title="Login" />
 
          {/* Left Panel */}
          <div className="relative hidden lg:flex flex-[1.2] flex-col justify-between p-20 overflow-hidden">

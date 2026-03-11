@@ -80,7 +80,9 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
 
    if (isLoading) {
       return (
-         <DashboardLayout title="Memuat Buku...">
+         <DashboardLayout>
+            <Head title="Memuat Buku" />
+
             <div className="flex justify-center items-center h-screen -mt-24">
                <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
             </div>
@@ -90,7 +92,9 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
 
    if (error || !book) {
       return (
-         <DashboardLayout title="Error">
+         <DashboardLayout>
+            <Head title="Error" />
+
             <div className="max-w-6xl mx-auto flex flex-col items-center justify-center h-96 gap-6">
                <h2 className="text-3xl font-black text-zinc-900">Oops! Buku tidak ditemukan.</h2>
                <p className="text-zinc-500 font-medium">{error || "Data buku yang Anda cari mungkin telah dihapus."}</p>
@@ -105,8 +109,8 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
    }
 
    return (
-      <DashboardLayout title={`Detail: ${book.title}`}>
-         <Head title={`${book.title} - Digital Pintar`} />
+      <DashboardLayout>
+         <Head title={book.title} />
 
          <div className="max-w-6xl mx-auto flex flex-col gap-10">
             {/* Navigation Header */}

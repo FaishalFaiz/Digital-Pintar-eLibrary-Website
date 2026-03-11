@@ -31,4 +31,10 @@ class BookmarkController extends Controller
 
         return back()->with('success', $message);
     }
+    public function destroyAll()
+{
+    Bookmark::where('user_id', auth()->id())->delete();
+
+    return back()->with('message', 'Semua bookmark berhasil dihapus! 🔥');
+}
 }

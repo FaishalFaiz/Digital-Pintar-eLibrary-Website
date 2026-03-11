@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, router, Link } from "@inertiajs/react";
 import { Heart, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { BookProps } from "@/components/book-card";
@@ -52,9 +52,19 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
         fetchBookmarks();
     }, [bookIds]);
 
+    const handleRemoveAll = () => {
+        if (confirm("Are you sure you want to remove all bookmarks?")) {
+            router.delete("/bookmarks/clear-all", {
+                onSuccess: () => {
+                    setBookmarkedBooks([]);
+                }
+            });
+        }
+    };
+
     return (
-        <DashboardLayout title="Bookmarks">
-            <Head title="Bookmarks - Digital Pintar" />
+        <DashboardLayout>
+            <Head title="Bookmarks" />
 
             {/* Header Info */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
@@ -63,11 +73,16 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                     <p className="text-zinc-400 font-medium">You have {bookmarkedBooks.length} books in your private collection.</p>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <Button variant="ghost" className="h-14 px-8 rounded-2xl text-xs font-black uppercase tracking-widest text-zinc-400 border border-zinc-100 hover:bg-zinc-900 hover:text-white transition-all">
-                        Remove All
-                    </Button>
-                </div>
+                    <div className="flex items-center gap-4">
+                        <Button
+                            variant="ghost"
+                            className="h-14 px-8 rounded-2xl text-xs font-black uppercase tracking-widest text-zinc-400 border border-zinc-100 hover:bg-zinc-900 hover:text-white transition-all disabled:opacity-50"
+                            onClick={handleRemoveAll}
+                            disabled={bookmarkedBooks.length === 0}
+                        >
+                            Remove All
+                        </Button>
+                    </div>
             </div>
 
             {isLoading ? (
@@ -97,10 +112,7 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 justify-center lg:justify-start">
                                     <Button className="bg-white text-zinc-900 rounded-2xl h-14 px-10 text-sm font-black hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/10">
-                                        Keep Reading
-                                    </Button>
-                                    <Button variant="ghost" className="h-14 px-8 text-sm font-black text-white hover:bg-white/10 rounded-2xl uppercase tracking-widest">
-                                        Book Details
+                                        <Link href={`/detail/${bookmarkedBooks[0].id}`}>Book Detail</Link>
                                     </Button>
                                 </div>
                             </div>

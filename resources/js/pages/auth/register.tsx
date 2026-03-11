@@ -21,7 +21,7 @@ export default function Register() {
 
    return (
       <div className="min-h-svh flex flex-col lg:flex-row bg-white selection:bg-primary/20 overflow-hidden relative">
-         <Head title="Sign Up - Digital Pintar" />
+         <Head title="Sign Up" />
 
          {/* Left Panel - Modern Minimalist Visual */}
          <div className="relative hidden lg:flex flex-[1.2] flex-col justify-between p-20 overflow-hidden">

@@ -58,8 +58,8 @@ export default function Dashboard() {
     };
 
     return (
-        <DashboardLayout title="Discover" onSearch={handleSearch}>
-            <Head title="Discover - Digital Pintar" />
+        <DashboardLayout onSearch={handleSearch}>
+            <Head title="Discover" />
 
             <div className="flex flex-col gap-12">
                 {/* Main Content Area */}

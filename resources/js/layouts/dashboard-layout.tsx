@@ -23,7 +23,6 @@ export default function DashboardLayout({
   onSearch
 }: {
   children: React.ReactNode,
-  title?: string,
   onSearch?: (query: string) => void
 }) {
   // 2. Gunakan interface yang sudah dibuat

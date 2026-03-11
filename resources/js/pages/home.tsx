@@ -11,7 +11,7 @@ export default function Home() {
 
     return (
         <MainLayout>
-            <Head title="Digital Pintar - Teman Belajar Setiamu" />
+            <Head title="Smart E-Library" />
 
             {/* Hero Section - Inspired by Image 2 */}
             <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden px-6">
@@ -97,11 +97,9 @@ export default function Home() {
                             </p>
                             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start w-full">
                                 <Button className="h-14 md:h-16 w-full sm:w-auto px-10 rounded-2xl bg-primary text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                                    Read Now <ArrowRight className="size-5 ml-3" />
+                                    <Link href="/detail/fFCjDQAAQBAJ">Read Now</Link>
                                 </Button>
-                                <Button variant="outline" className="h-14 md:h-16 w-full sm:w-auto px-10 rounded-2xl font-bold border-zinc-200">
-                                    View Synopsis
-                                </Button>
+
                             </div>
                         </div>
                     </div>
@@ -131,7 +129,7 @@ export default function Home() {
 
                     <div className="mt-20 flex justify-center">
                         <Button variant="outline" className="h-16 px-12 rounded-full font-black text-lg border-zinc-200 hover:border-primary hover:text-primary transition-all">
-                            Load More Books
+                            <Link href="/dashboard">Load More Books</Link>
                         </Button>
                     </div>
                 </div>
@@ -159,9 +157,9 @@ export default function Home() {
                                 placeholder="E-mail"
                                 className="h-14 md:h-16 px-8 rounded-2xl bg-white/5 border-white/10 text-white outline-none focus:ring-2 focus:ring-primary w-full lg:max-w-xs"
                             />
-                            <Button className="h-14 md:h-16 w-full lg:w-auto px-12 rounded-2xl bg-primary text-white font-black hover:scale-105 transition-all">
+                            <Link href="/dashboard" className="h-14 md:h-16  w-full lg:w-auto pt-4 p-4 px-12 rounded-2xl bg-primary text-white font-black hover:scale-105 transition-all">
                                 Subscribe Now
-                            </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

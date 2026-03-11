@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     })->name('detail');
 
     Route::post('/bookmarks/toggle', [BookmarkController::class, 'toggle'])->name('bookmarks.toggle');
+    Route::delete('/bookmarks/clear-all', [BookmarkController::class, 'destroyAll'])->name('bookmarks.destroyAll');
 
     // Route untuk nembak fungsi logout
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');

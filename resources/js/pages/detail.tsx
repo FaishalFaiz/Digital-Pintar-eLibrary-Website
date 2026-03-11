@@ -124,12 +124,8 @@ export default function Detail({ id }: { id: string }) {
 
                   {/* Pricing and Action */}
                   <div className="flex flex-col sm:flex-row items-center gap-6 mt-4">
-                     <div className="flex flex-col leading-none">
-                        <span className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-1">Status Akses</span>
-                        <div className="text-3xl font-black text-primary italic">Free For You</div>
-                     </div>
                      <Link href="#" className="w-full sm:flex-1">
-                        <Button className="h-16 w-full rounded-2xl bg-zinc-950 text-white font-black text-lg shadow-2xl hover:bg-primary hover:scale-[1.02] transition-all group">
+                        <Button className="h-16 w-full rounded-2xl bg-primary text-white font-black text-lg shadow-2xl hover:bg-primary/80 hover:scale-[1.02] transition-all group">
                            Mulai Membaca Sekarang
                            <ChevronRight size={20} className="ml-3 group-hover:translate-x-1 transition-transform" />
                         </Button>
@@ -138,7 +134,6 @@ export default function Detail({ id }: { id: string }) {
                </div>
             </div>
 
-            {/* Recommendations / Sidebar like section later */}
          </div>
       </DashboardLayout>
    );

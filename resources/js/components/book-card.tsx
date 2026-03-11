@@ -1,6 +1,5 @@
-import { Star, BookOpen, Clock, Tag } from "lucide-react";
 import { Link } from "@inertiajs/react";
-import { Button } from "./ui/button";
+import { Star } from "lucide-react";
 
 export type BookProps = {
   id: number | string;
@@ -12,7 +11,7 @@ export type BookProps = {
   pages?: number;
 };
 
-export default function BookCard({ id, title, author, category, cover, rating, pages }: BookProps) {
+export default function BookCard({ id, title, author, category, cover, rating }: BookProps) {
   return (
     <div className="group flex flex-col gap-4 pointer-events-auto transition-all duration-500 hover:scale-[1.02]">
       {/* Book cover wrapper */}

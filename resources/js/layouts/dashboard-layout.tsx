@@ -1,7 +1,8 @@
 import { usePage, Link } from "@inertiajs/react";
 import { LayoutDashboard, BookMarked, UserCircle, Menu, X, Search, LogOut } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Logo from "@/components/logo";
+import ProfileCard from "@/components/ui/profile-card";
 
 export default function DashboardLayout({ children, title = "" }: { children: React.ReactNode, title?: string }) {
   const { auth } = usePage().props as any;
@@ -67,7 +68,7 @@ export default function DashboardLayout({ children, title = "" }: { children: Re
           href="/logout"
           method="post"
           as="button"
-          className="flex items-center gap-2 px-6 py-3 bg-red-500 text-white font-bold rounded-2xl hover:bg-red-600 transition-colors shadow-lg shadow-red-500/30"
+          className="flex items-center m-4 gap-4 px-5 py-4 rounded-2xl bg-zinc-100 text-zinc-500 hover:text-red-400 hover:bg-red-100 transition-all"
         >
           <LogOut size={20} />
           Logout Sekarang
@@ -98,10 +99,7 @@ export default function DashboardLayout({ children, title = "" }: { children: Re
           </div>
 
           {/* Right Side: User Profile / Actions (Desktop) */}
-          <div className="hidden lg:flex items-center gap-4">
-            {/* Lo bisa taruh Avatar atau Button Sign In di sini biar header-nya nggak kopong */}
-            <div className="size-10 rounded-full bg-zinc-200" />
-          </div>
+          <ProfileCard user={user} />
         </header>
 
         {/* Content Area */}

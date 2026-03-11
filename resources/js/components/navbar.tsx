@@ -1,9 +1,10 @@
 import { Link } from "@inertiajs/react";
 import { Menu, X, } from "lucide-react";
 import { useState, useEffect } from "react";
+import { User } from "@/types";
 import Logo from "./logo";
 import { Button } from "./ui/button";
-import { User } from "@/types";
+import ProfileCard from "./ui/profile-card";
 
 export default function Navbar({ user }: { user?: User }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,16 +53,7 @@ export default function Navbar({ user }: { user?: User }) {
         {/* Actions */}
         <div className="hidden lg:flex items-center gap-6">
           {user ? (
-            <Link href="/dashboard" className="flex items-center gap-3 bg-zinc-100 p-1 rounded-full pr-4 hover:bg-zinc-200 transition-all">
-                <div className="size-9 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                    <img
-                    src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=0D8ABC&color=fff`}
-                    alt={user.name}
-                    className="w-full h-full object-cover"
-                    />
-                </div>
-                <span className="text-sm font-bold text-zinc-900">{user.name}</span>
-            </Link>
+            <ProfileCard user={user} />
           ) : (
             <div className="flex items-center gap-6">
               <Link href={ `/login` } className={`text-sm font-bold hover:text-primary transition-colors ${ scrolled ? 'text-zinc-900' : 'text-white' }`}>Sign in</Link>

@@ -1,10 +1,10 @@
 import { Head, Link, useForm } from "@inertiajs/react";
+import { Loader2 } from "lucide-react";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2 } from "lucide-react";
 
 export default function Register() {
    const { data, setData, post, processing, errors } = useForm({
@@ -59,6 +59,12 @@ export default function Register() {
                   <p className="text-zinc-500 font-medium">Join us and explore thousands of books.</p>
                </div>
 
+               {errors.name && (
+                  <p className="text-red-500 text-sm mt-1 animate-pulse">
+                     {errors.name}
+                  </p>
+               )}
+
                <form onSubmit={submit} className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2 group">
                      <Label htmlFor="name" className="text-[11px] font-black uppercase tracking-[0.2em] text-zinc-400 group-focus-within:text-primary transition-colors ml-1">Full Name</Label>
@@ -110,8 +116,6 @@ export default function Register() {
                      {processing ? <Loader2 size={24} className="animate-spin mr-3" /> : "Sign Up"}
                   </Button>
                </form>
-
-
 
                <p className="text-center text-sm font-bold text-zinc-400">
                   Already have an account? <Link href="/login" className="text-primary hover:underline underline-offset-4">Log In</Link>

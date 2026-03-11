@@ -54,8 +54,8 @@ class AuthController extends Controller
     public function registerStore(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:100|min:3',
+            'email' => 'required|string|email|max:100|min:3|unique:users',
             'password' => 'required|string|min:8',
         ]);
 
@@ -63,6 +63,13 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+        ], [
+            'name.required' => 'Nama jangan dikosongin dong, masa anonim? 😂',
+            'name.min' => 'Nama kependekan bro, minimal 3 karakter ya.',
+            'name.max' => 'Waduh, namanya kepanjangan! Maksimal 50 karakter aja biar rapi.',
+            'name.regex' => 'Nama pake huruf aja ya, jangan pake simbol aneh-aneh.',
+            'email.unique' => 'Email ini udah dipake orang lain, cari yang lain gih!',
+            'password.min' => 'Password minimal 8 karakter biar aman dari hacker! 🔒',
         ]);
 
         Auth::login($user);

@@ -1,10 +1,9 @@
 import { Head, Link, useForm } from "@inertiajs/react";
+import { Loader2 } from "lucide-react";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, Github, Chrome } from "lucide-react";
 
 export default function Login() {
    const { data, setData, post, processing, errors } = useForm({

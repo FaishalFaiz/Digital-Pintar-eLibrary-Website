@@ -30,7 +30,7 @@ export default function Login() {
             <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/5 translate-x-1/4 translate-y-1/4 rounded-full blur-3xl" />
 
             <Link href="/" className="relative z-20">
-               <Logo />
+               <Logo isScrolled={true} />
             </Link>
 
             <div className="relative z-20 max-w-lg mb-20">
@@ -94,6 +94,9 @@ export default function Login() {
                   <Button type="submit" className="h-16 rounded-[20px] bg-primary text-white text-lg font-black shadow-2xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all mt-4" disabled={processing}>
                      {processing ? <Loader2 size={24} className="animate-spin" /> : "Login"}
                   </Button>
+                  <p className="text-center text-sm font-bold text-zinc-400">
+                     Don't have an account? <Link href="/register" className="text-primary hover:underline underline-offset-4">Register</Link>
+                  </p>
                </form>
 
 

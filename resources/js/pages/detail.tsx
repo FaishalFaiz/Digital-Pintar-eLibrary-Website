@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import {
    Bookmark,
    ArrowLeft,
@@ -26,7 +26,16 @@ interface BookDetailData {
    description: string;
 }
 
-export default function Detail({ id }: { id: string }) {
+export default function Detail({ id, isBookmarked }: { id: string, isBookmarked: boolean }) {
+    const { data, setData, post, processing } = useForm({
+        book_id: id,
+    });
+
+    const handleBookmark = () => {
+        post("/bookmarks/toggle", {
+            preserveScroll: true,
+        });
+    };
    const [book, setBook] = useState<BookDetailData | null>(null);
    const [isLoading, setIsLoading] = useState(true);
    const [error, setError] = useState<string | null>(null);
@@ -62,6 +71,11 @@ export default function Detail({ id }: { id: string }) {
 
       fetchBookDetail();
    }, [id]);
+
+   // No need to set title/thumbnail anymore as we only store id
+   useEffect(() => {
+      // Logic for title/thumbnail removed at user request to only store id
+   }, [book]);
 
    if (isLoading) {
       return (
@@ -105,9 +119,21 @@ export default function Detail({ id }: { id: string }) {
                   </div>
                </Link>
                <div className="flex items-center gap-2">
-                  <Button className="h-10 px-4 rounded-xl hover:text-white/70 gap-2 transition-all">
-                     <Bookmark size={16} />
-                     <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Simpan</span>
+                  <Button 
+                     onClick={handleBookmark}
+                     disabled={processing || isLoading}
+                     className={`h-11 px-6 rounded-2xl gap-3 transition-all duration-300 font-bold uppercase tracking-widest text-[11px] shadow-sm
+                        ${isBookmarked 
+                           ? "bg-zinc-100 text-zinc-900 border border-zinc-200 hover:bg-zinc-200" 
+                           : "bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
+                        }`}
+                  >
+                     {isBookmarked ? (
+                        <Star size={16} className="fill-yellow-400 text-yellow-400" />
+                     ) : (
+                        <Bookmark size={16} />
+                     )}
+                     <span>{isBookmarked ? "Saved" : "Bookmark"}</span>
                   </Button>
                </div>
             </div>

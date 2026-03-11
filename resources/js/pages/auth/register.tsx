@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Mail, Lock, ArrowRight, Github, UserCircle, Chrome } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function Register() {
    const { data, setData, post, processing, errors } = useForm({
@@ -29,7 +29,7 @@ export default function Register() {
             <div className="blob-shape bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/5 translate-x-1/4 translate-y-1/4" />
 
             <Link href="/" className="relative z-20">
-               <Logo />
+               <Logo isScrolled={true} />
             </Link>
 
             <div className="relative z-20 max-w-lg mb-20 animate-in fade-in slide-in-from-left-10 duration-1000">
@@ -42,7 +42,7 @@ export default function Register() {
             </div>
 
             <div className="relative z-20 flex items-center gap-4 text-sm font-black text-zinc-300 uppercase tracking-widest italic opacity-50">
-               DigitalPintar © 2024
+               DigitalPintar © 2026
             </div>
          </div>
 

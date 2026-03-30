@@ -12,6 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/layouts/dashboard-layout";
+import { getBookById } from "@/lib/google-books";
 
 interface BookDetailData {
    id: string;
@@ -43,12 +44,9 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
    useEffect(() => {
       const fetchBookDetail = async () => {
          setIsLoading(true);
+         setError(null);
          try {
-            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
-            const url = `https://www.googleapis.com/books/v1/volumes/${id}${apiKey ? `?key=${apiKey}` : ""}`;
-            const res = await fetch(url);
-            if (!res.ok) throw new Error("Gagal mengambil data buku");
-            const data = await res.json();
+            const data = await getBookById(id);
 
             const volumeInfo = data.volumeInfo;
             setBook({
@@ -64,7 +62,7 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
                description: volumeInfo.description ? volumeInfo.description.replace(/<[^>]*>?/gm, '') : 'Tidak ada deskripsi tersedia untuk buku ini.',
             });
          } catch (err: Error | unknown) {
-            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+            const errorMessage = err instanceof Error ? err.message : "Gagal mengambil data buku";
             console.error("Error fetching book:", err);
             setError(errorMessage);
          } finally {

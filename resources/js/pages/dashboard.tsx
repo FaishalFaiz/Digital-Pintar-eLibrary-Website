@@ -5,30 +5,31 @@ import BookCard from "@/components/book-card";
 import { Button } from "@/components/ui/button";
 import { BOOKS } from "@/constants/dummy";
 import DashboardLayout from "@/layouts/dashboard-layout";
+import { searchBooks } from "@/lib/google-books";
 
 export default function Dashboard() {
     const [books, setBooks] = useState<BookProps[]>(BOOKS as BookProps[]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [emptyState, setEmptyState] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSearch = async (query: string) => {
         if (!query.trim()) {
             setBooks([]);
             setEmptyState(true);
             setIsSearchActive(true);
+            setError(null);
             return;
         }
 
         setIsLoading(true);
         setIsSearchActive(true);
         setEmptyState(false);
+        setError(null);
 
         try {
-            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
-            const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=8${apiKey ? `&key=${apiKey}` : ''}`;
-            const res = await fetch(url);
-            const data = await res.json();
+            const data = await searchBooks(query, 8);
 
             if (data.items && data.items.length > 0) {
                 const mappedBooks = data.items.map((item: { id: string; volumeInfo: { title: string; authors: string[]; categories: string[]; imageLinks: { thumbnail?: string }; averageRating: number } }) => ({
@@ -46,6 +47,7 @@ export default function Dashboard() {
             }
         } catch (error) {
             console.error("Error fetching books:", error);
+            setError(error instanceof Error ? error.message : "Gagal mengambil data dari Google Books");
             setBooks([]);
             setEmptyState(true);
         } finally {
@@ -70,6 +72,14 @@ export default function Dashboard() {
                     {isLoading ? (
                         <div className="flex justify-center items-center h-64">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                        </div>
+                    ) : error ? (
+                        <div className="flex flex-col items-center justify-center h-64 space-y-4">
+                            <h3 className="text-xl font-bold text-red-500">Error: Google Books API</h3>
+                            <p className="text-zinc-500 text-sm max-w-md text-center">{error}</p>
+                            <Button onClick={resetSearch} variant="outline" className="mt-2">
+                                Kembali ke Awal
+                            </Button>
                         </div>
                     ) : emptyState || books.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-64 space-y-4">

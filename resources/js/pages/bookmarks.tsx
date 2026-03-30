@@ -5,10 +5,12 @@ import type { BookProps } from "@/components/book-card";
 import BookCard from "@/components/book-card";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/layouts/dashboard-layout";
+import { getBookById } from "@/lib/google-books";
 
 export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
     const [bookmarkedBooks, setBookmarkedBooks] = useState<BookProps[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchBookmarks = async () => {
@@ -18,15 +20,13 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                 return;
             }
 
+            setIsLoading(true);
+            setError(null);
             try {
                 const fetchedBooks = await Promise.all(
                     bookIds.map(async (id) => {
                         try {
-                            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
-                            const url = `https://www.googleapis.com/books/v1/volumes/${id}${apiKey ? `?key=${apiKey}` : ""}`;
-                            const res = await fetch(url);
-                            if (!res.ok) return null;
-                            const data = await res.json();
+                            const data = await getBookById(id);
                             const volumeInfo = data.volumeInfo;
                             return {
                                 id: data.id,
@@ -38,6 +38,10 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                             };
                         } catch (err) {
                             console.error(`Error fetching book ${id}:`, err);
+                            // Throwing here so it catches in the outer try-catch if it's an API key error
+                            if (err instanceof Error && err.message.includes("API Key is missing")) {
+                                throw err;
+                            }
                             return null;
                         }
                     })
@@ -46,6 +50,7 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                 setBookmarkedBooks(fetchedBooks.filter((b): b is BookProps => b !== null));
             } catch (error) {
                 console.error("Error fetching bookmarks:", error);
+                setError(error instanceof Error ? error.message : "Gagal mengambil data koleksi");
             } finally {
                 setIsLoading(false);
             }
@@ -90,6 +95,24 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
             {isLoading ? (
                 <div className="flex justify-center items-center py-20">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            ) : error ? (
+                <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
+                    <div className="size-24 bg-red-50 rounded-full flex items-center justify-center text-red-500">
+                        <Heart size={40} />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-black text-red-500 mb-2">Gagal Memuat Koleksi</h3>
+                        <p className="text-zinc-500 font-medium max-w-sm mx-auto">
+                            {error}
+                        </p>
+                    </div>
+                    <Button 
+                        onClick={() => window.location.reload()}
+                        className="rounded-2xl px-10 h-14 font-black text-xs uppercase tracking-widest bg-zinc-900 text-white"
+                    >
+                        Coba Lagi
+                    </Button>
                 </div>
             ) : bookmarkedBooks.length > 0 ? (
                 <>

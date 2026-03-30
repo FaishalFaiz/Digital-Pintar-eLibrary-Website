@@ -5,6 +5,7 @@ namespace App\Models;
 // Perhatikan bagian ini! Harus Authenticatable
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Bookmark;
 
 class User extends Authenticatable
 {

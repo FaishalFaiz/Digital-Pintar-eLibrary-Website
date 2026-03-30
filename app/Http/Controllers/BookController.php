@@ -15,16 +15,17 @@ class BookController extends Controller
             return response()->json(['items' => []]);
         }
 
-        $apiKey = env('VITE_GOOGLE_BOOKS_API_KEY');
+        $apiKey = config('services.google_books.key');
+        
+        if (!$apiKey) {
+            return response()->json(['error' => 'API Key is missing. Google Books integration is disabled.'], 403);
+        }
         
         $params = [
             'q' => $query,
             'maxResults' => 8,
+            'key' => $apiKey,
         ];
-
-        if ($apiKey) {
-            $params['key'] = $apiKey;
-        }
 
         $response = Http::get('https://www.googleapis.com/books/v1/volumes', $params);
 
@@ -32,18 +33,22 @@ class BookController extends Controller
             return response()->json($response->json());
         }
 
-        return response()->json(['error' => 'Failed to fetch data'], 500);
+        return response()->json(['error' => 'Failed to fetch data from Google Books'], 500);
     }
+
     public function show($id)
     {
-        $apiKey = env('VITE_GOOGLE_BOOKS_API_KEY');
+        $apiKey = config('services.google_books.key');
         
+        if (!$apiKey) {
+            return response()->json(['error' => 'API Key is missing. Google Books integration is disabled.'], 403);
+        }
+
         $url = "https://www.googleapis.com/books/v1/volumes/{$id}";
         
-        $params = [];
-        if ($apiKey) {
-            $params['key'] = $apiKey;
-        }
+        $params = [
+            'key' => $apiKey,
+        ];
 
         $response = Http::get($url, $params);
 
@@ -51,6 +56,6 @@ class BookController extends Controller
             return response()->json($response->json());
         }
 
-        return response()->json(['error' => 'Failed to fetch book details'], 500);
+        return response()->json(['error' => 'Failed to fetch book details from Google Books'], 500);
     }
 }

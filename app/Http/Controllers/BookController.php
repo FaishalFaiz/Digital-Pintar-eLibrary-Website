@@ -15,7 +15,7 @@ class BookController extends Controller
             return response()->json(['items' => []]);
         }
 
-        $apiKey = env('GOOGLE_BOOKS_API_KEY');
+        $apiKey = env('VITE_GOOGLE_BOOKS_API_KEY');
         
         $params = [
             'q' => $query,
@@ -36,7 +36,7 @@ class BookController extends Controller
     }
     public function show($id)
     {
-        $apiKey = env('GOOGLE_BOOKS_API_KEY');
+        $apiKey = env('VITE_GOOGLE_BOOKS_API_KEY');
         
         $url = "https://www.googleapis.com/books/v1/volumes/{$id}";
         

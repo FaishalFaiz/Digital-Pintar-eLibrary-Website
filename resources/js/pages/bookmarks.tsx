@@ -22,7 +22,9 @@ export default function Bookmarks({ bookIds }: { bookIds: string[] }) {
                 const fetchedBooks = await Promise.all(
                     bookIds.map(async (id) => {
                         try {
-                            const res = await fetch(`/api/books/${id}`);
+                            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
+                            const url = `https://www.googleapis.com/books/v1/volumes/${id}${apiKey ? `?key=${apiKey}` : ""}`;
+                            const res = await fetch(url);
                             if (!res.ok) return null;
                             const data = await res.json();
                             const volumeInfo = data.volumeInfo;

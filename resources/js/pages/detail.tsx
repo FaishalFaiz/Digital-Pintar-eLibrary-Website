@@ -44,7 +44,9 @@ export default function Detail({ id, isBookmarked }: { id: string, isBookmarked:
       const fetchBookDetail = async () => {
          setIsLoading(true);
          try {
-            const res = await fetch(`/api/books/${id}`);
+            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
+            const url = `https://www.googleapis.com/books/v1/volumes/${id}${apiKey ? `?key=${apiKey}` : ""}`;
+            const res = await fetch(url);
             if (!res.ok) throw new Error("Gagal mengambil data buku");
             const data = await res.json();
 

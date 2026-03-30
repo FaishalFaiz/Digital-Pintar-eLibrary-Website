@@ -25,7 +25,9 @@ export default function Dashboard() {
         setEmptyState(false);
 
         try {
-            const res = await fetch(`/api/books/search?q=${encodeURIComponent(query)}`);
+            const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
+            const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=8${apiKey ? `&key=${apiKey}` : ''}`;
+            const res = await fetch(url);
             const data = await res.json();
 
             if (data.items && data.items.length > 0) {

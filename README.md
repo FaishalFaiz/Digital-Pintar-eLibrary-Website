@@ -10,7 +10,9 @@
 
 What makes it "Smart"? It doesn't just store local data; it integrates directly with the **Google Books API**, allowing users to explore millions of titles across the globe in real-time! 🚀
 
-### ✨ Key Features:
+---
+
+## ✨ Key Features:
 * 🔍 **Global Discovery:** Real-time book search powered by **Google Books API**.
 * ⚡ **SPA Architecture:** Lightning-fast navigation and state management using **React.js**.
 * 🛡️ **Secure Authentication:** Robust user Auth system powered by Laravel.
